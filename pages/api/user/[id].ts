@@ -43,8 +43,16 @@ setTimeout(() => {
 }, 10000);
 
 // 获取用户数据
-export default function getUser(req: NextApiRequest, res: NextApiResponse) {
+export default async function getUser(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
+
+  // 模拟从数据库中获取数据
   const user = users[id as string];
+
+  // 模拟从第三方服务获取数据
+  // const ret = await fetch(`https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/user.json`).then((res) => res.json());
+  // console.log('ret.....', ret);
+  // const user = ret[id as string];
+
   res.status(200).json({ id, user });
 }
