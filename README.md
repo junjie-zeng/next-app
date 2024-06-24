@@ -38,7 +38,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 
-
 ###  Next.js  
 
 
@@ -55,6 +54,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ### 1. 什么是 Next.js？
     Next.js 是一个用于构建全栈 Web 应用程序的 React 框架。您可以使用 React Components 构建用户界面，并使用 Next.js 实现附加功能和优化。
+
+    在底层，Next.js 还会抽象并自动配置 React 所需的工具，如打包、编译等。这样您就可以专注于构建应用程序，而不必花时间进行配置。
+
+    无论您是个人开发者还是大型团队的一部分，Next.js 都可以帮助您构建交互式、动态且快速的 React 应用程序。
 
 ### 2. next.js能做什么
   解决React(单页面应用)存在的一些问题
@@ -302,6 +305,19 @@ export default function handler(req, res) {
 4. **路由和导航**：使用文件系统路由和动态路由，掌握 Link 组件的使用。
 5. **数据获取**：静态渲染和动态渲染的基本用法。
 6. **API 路由**：在 Next.js 中创建和使用 API 路由。
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
