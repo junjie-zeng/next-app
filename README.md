@@ -70,8 +70,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   ## 单页面存在的一些问题
     1. 依赖js环境
     2. 首屏加载慢 
-    3. 安全性
-    4. 不利于seo
+    3. 不利于seo
 
   ## 解决方案
     服务端渲染
