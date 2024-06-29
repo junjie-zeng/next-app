@@ -4,7 +4,7 @@ import Link from "next/link";
 type Data = {
   id: string;
   name: string;
-  city:string
+  city: string;
 };
 
 function mockWait(ms: number) {
@@ -13,14 +13,20 @@ function mockWait(ms: number) {
   });
 }
 
-export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const id = context.params?.id;
-  const data = await fetch(`http://localhost:3000/api/user/${id}`).then((res) =>
-    res.json()
-  );
+  // const data = await fetch(`http://localhost:3000/api/user/${id}`).then((res) =>
+  //   res.json()
+  // );
+  const ret = await fetch(
+    `https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/user.json`
+  ).then((res) => res.json());
+  const data = ret[id as string];
 
   // 模拟服务器耗时
-  if (id == '4') {
+  if (id == "4") {
     await mockWait(3000);
   }
 
@@ -33,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
   };
 };
 
-const SSRPage = ({ data }: { data: Data}) => {
+const SSRPage = ({ data }: { data: Data }) => {
   return (
     <div>
       <h1>动态渲染</h1>

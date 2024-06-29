@@ -1,12 +1,11 @@
-import { GetStaticProps ,GetStaticPropsContext} from "next";
+import { GetStaticProps, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 
 type Data = {
   id: string;
   name: string;
-  city:string
+  city: string;
 };
-
 
 function mockWait(ms: number) {
   return new Promise((resolve) => {
@@ -16,7 +15,7 @@ function mockWait(ms: number) {
 
 export async function getStaticPaths() {
   let paths = [{ params: { id: "1" } }, { params: { id: "2" } }];
-  console.log('getStaticPaths ...');
+  console.log("getStaticPaths ...");
   return {
     paths,
     fallback: "blocking",
@@ -25,15 +24,20 @@ export async function getStaticPaths() {
   };
 }
 
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
-  const id= context.params?.id;
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  const id = context.params?.id;
   // 获取数据
-  const data = await fetch(`http://localhost:3000/api/user/${id}`).then((res) =>
-    res.json()
-  );
-
+  // const data = await fetch(`http://localhost:3000/api/user/${id}`).then((res) =>
+  //   res.json()
+  // );
+  const ret = await fetch(
+    `https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/user.json`
+  ).then((res) => res.json());
+  const data = ret[id as string];
   // 模拟服务器耗时
-  if(id == '4'){
+  if (id == "4") {
     await mockWait(3000);
   }
 
@@ -46,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
   };
 };
 
-const Ssg = ({ data }: {data:Data}) => {
+const Ssg = ({ data }: { data: Data }) => {
   const router = useRouter();
 
   const handlePush = (id: string) => {
