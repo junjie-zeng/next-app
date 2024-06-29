@@ -17,13 +17,9 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const id = context.params?.id;
-  // const data = await fetch(`http://localhost:3000/api/user/${id}`).then((res) =>
-  //   res.json()
-  // );
-  const ret = await fetch(
-    `https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/user.json`
+  const data = await fetch(
+    `https://next-app-brown-one.vercel.app/api/user/${id}`
   ).then((res) => res.json());
-  const data = ret[id as string];
 
   // 模拟服务器耗时
   if (id == "4") {

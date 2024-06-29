@@ -7,7 +7,9 @@ const SSRPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://localhost:3000/api/about/1");
+      const res = await fetch(
+        "hhttps://next-app-brown-one.vercel.app/api/about/1"
+      );
       const data = await res.json();
       setData(data);
     };
