@@ -1,12 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../../scripts/postgres";
 
-// 获取用户id获取数据
-export default async function getUserById(
+// 获取所有用户数据
+export default async function getUser(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id } = req.query;
-  const { rows } = await query(`SELECT * FROM users WHERE id = '${id}'`);
+  const { rows } = await query(`SELECT * FROM users`);
   res.status(200).json(rows);
 }

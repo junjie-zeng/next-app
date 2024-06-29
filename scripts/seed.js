@@ -2,10 +2,22 @@ const { db } = require("@vercel/postgres");
 
 const users = [
   {
-    id: "410544b2-4001-4271-9855-fec4b6a6442a",
-    name: "User",
-    email: "user@nextmail.com",
-    password: "123456",
+    id: "410544b2-4001-4271-9855-fec4b6a6442b",
+    name: "admin",
+    email: "admin@nextmail.com",
+    password: "admin",
+  },
+  {
+    id: "410544b2-4001-4271-9855-fec4b6a6442c",
+    name: "blue",
+    email: "blue@nextmail.com",
+    password: "888888",
+  },
+  {
+    id: "410544b2-4001-4271-9855-fec4b6a6442d",
+    name: "red",
+    email: "red@nextmail.com",
+    password: "666666",
   },
 ];
 
