@@ -1,5 +1,6 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import Link from "next/link";
+import Nav from "../../components/Nav";
+import { getUserById } from "../../data";
 
 type Data = {
   id: string;
@@ -16,11 +17,8 @@ function mockWait(ms: number) {
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const id = context.params?.id;
-  const data = await fetch(
-    `https://next-app-brown-one.vercel.app/api/user/${id}`
-  ).then((res) => res.json());
-
+  const id = context.params?.id as string;
+  const data = await getUserById(id);
   // 模拟服务器耗时
   if (id == "4") {
     await mockWait(3000);
@@ -38,12 +36,11 @@ export const getServerSideProps: GetServerSideProps = async (
 const SSRPage = ({ data }: { data: Data }) => {
   return (
     <div>
+      <Nav />
       <h1>动态渲染</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-      <h3>下面是导航</h3>
-      <Link href="/">首页</Link> <br />
-      <Link href="/ssr/1">/ssr/1</Link> <br />
-      <Link href="/ssr/2">/ssr/2</Link>
+      <div className="bg-gray-200 p-4">
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
     </div>
   );
 };

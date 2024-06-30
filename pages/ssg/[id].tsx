@@ -1,6 +1,7 @@
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
-
+import Nav from "../../components/Nav";
+import { getUserById, getUsers } from "../../data";
 type Data = {
   id: string;
   name: string;
@@ -14,7 +15,14 @@ function mockWait(ms: number) {
 }
 
 export async function getStaticPaths() {
-  let paths = [{ params: { id: "1" } }, { params: { id: "2" } }];
+  // 获取所有用户
+  const rows = await getUsers();
+  // 生成所有路径
+  const paths = rows.map((row: Data) => {
+    return {
+      params: { id: row.id },
+    };
+  });
   console.log("getStaticPaths ...");
   return {
     paths,
@@ -27,11 +35,9 @@ export async function getStaticPaths() {
 export const getStaticProps: GetStaticProps = async (
   context: GetStaticPropsContext
 ) => {
-  const id = context.params?.id;
+  const id = context.params?.id as string;
   // 获取数据
-  const data = await fetch(
-    `https://next-app-brown-one.vercel.app/api/user/${id}`
-  ).then((res) => res.json());
+  const data = await getUserById(id);
   // 模拟服务器耗时
   if (id == "4") {
     await mockWait(3000);
@@ -48,11 +54,6 @@ export const getStaticProps: GetStaticProps = async (
 
 const Ssg = ({ data }: { data: Data }) => {
   const router = useRouter();
-
-  const handlePush = (id: string) => {
-    router.push(`/ssg/${id}`);
-  };
-
   console.log("isFallback", router.isFallback ? "加载中..." : "准备渲染了 ...");
 
   // if (router.isFallback) {
@@ -61,30 +62,9 @@ const Ssg = ({ data }: { data: Data }) => {
 
   return (
     <div>
+      <Nav />
       <h1>静态渲染 </h1>
       <pre> {JSON.stringify(data, null, 2)} </pre>
-      <h3>下面是导航</h3>
-      <button
-        onClick={() => {
-          handlePush("1");
-        }}
-      >
-        用户1
-      </button>
-      <button
-        onClick={() => {
-          handlePush("2");
-        }}
-      >
-        用户2
-      </button>
-      <button
-        onClick={() => {
-          handlePush("3");
-        }}
-      >
-        用户3
-      </button>
     </div>
   );
 };

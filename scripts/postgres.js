@@ -1,4 +1,3 @@
-// postgres.js
 const { db } = require("@vercel/postgres");
 
 let client;

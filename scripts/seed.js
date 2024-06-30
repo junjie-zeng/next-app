@@ -23,8 +23,9 @@ const users = [
 
 async function seedUsers(client) {
   try {
+    // id扩展
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    // Create the "users" table if it doesn't exist
+    // 创建表
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS users (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -67,8 +68,5 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error(
-    "An error occurred while attempting to seed the database:",
-    err
-  );
+  console.error("报错啦！！！", err);
 });
