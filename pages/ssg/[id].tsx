@@ -1,11 +1,11 @@
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
-import Nav from "../../components/Nav";
-import { getUserById, getUsers } from "../../data";
+import { getUserById, getUsers } from "../lib/data";
 type Data = {
   id: string;
   name: string;
-  city: string;
+  email: string;
+  password: string;
 };
 
 function mockWait(ms: number) {
@@ -16,9 +16,9 @@ function mockWait(ms: number) {
 
 export async function getStaticPaths() {
   // 获取所有用户
-  const rows = await getUsers();
+  const data: any = await getUsers();
   // 生成所有路径
-  const paths = rows.map((row: Data) => {
+  const paths = data.map((row: Data) => {
     return {
       params: { id: row.id },
     };
@@ -62,7 +62,6 @@ const Ssg = ({ data }: { data: Data }) => {
 
   return (
     <div>
-      <Nav />
       <h1>静态渲染 </h1>
       <pre> {JSON.stringify(data, null, 2)} </pre>
     </div>
