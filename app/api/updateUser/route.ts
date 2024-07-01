@@ -1,7 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { sql } from "@vercel/postgres";
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: any) {
   try {
     const { id, name, email } = await req.json();
     const ret = await sql`
@@ -26,7 +25,7 @@ export async function POST(req: NextApiRequest) {
         "Content-Type": "application/json",
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: {

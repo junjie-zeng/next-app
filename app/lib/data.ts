@@ -13,8 +13,6 @@ export const getUsers = async () => {
 export const getUserById = async (id: string) => {
   try {
     const { rows } = await sql`SELECT * FROM users WHERE id = ${id}`;
-    console.log("rows", rows);
-
     return rows;
   } catch (error) {
     console.log(error);

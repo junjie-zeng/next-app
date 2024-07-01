@@ -3,9 +3,7 @@
 import React from "react";
 import Link from "next/link";
 
-export default function Item({ user }) {
-  console.log(user);
-
+export default function Item({ user }: any) {
   const { id, name } = user;
   const handleClick = async (flag: boolean) => {
     const _name = flag ? name.toUpperCase() : name.toLowerCase();

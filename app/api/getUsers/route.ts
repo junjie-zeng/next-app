@@ -1,10 +1,14 @@
-import { NextApiRequest } from "next";
 import { sql } from "@vercel/postgres";
 
-export async function GET(request: NextApiRequest) {
+export async function GET() {
   try {
     const { rows } = await sql`SELECT * FROM users`;
-    return Response.json(rows);
+    return new Response(JSON.stringify(rows), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     console.log(error);
   }
