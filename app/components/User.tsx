@@ -7,7 +7,7 @@ interface Props {
 
 
 export default async function User(props: Props) {
-  const users = await getUserById(props.id)
+  const users:any = await getUserById(props.id)
   const user = users[0]
   // 模拟请求耗时
   if (user.name === "blue") {
