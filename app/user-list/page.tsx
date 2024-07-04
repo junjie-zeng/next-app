@@ -5,7 +5,7 @@ export const revalidate = 0; // 禁用缓存
 
 export default async function UserListPage() {
   const users: any = await getUsers();
-  // console.log(users);
+  console.log(users);
 
   return (
     <div>
