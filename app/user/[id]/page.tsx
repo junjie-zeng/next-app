@@ -1,11 +1,16 @@
-import { getUserById } from "../../lib/data";
-
+import { Suspense } from "react"
+import User from "../../components/User"
 export default async function UserPage({ params }: any) {
-  const user = await getUserById(params.id);
   return (
     <div>
       <h1>用户详情：</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <Suspense fallback={<div>Loading ...</div>}>
+        <User id={params.id} />
+      </Suspense>
+      {/* <User id={params.id} /> */}
+      <div
+        style={{ width: "100px", height: "100px", background: "gray" }}
+      ></div>
     </div>
-  );
+  )
 }
