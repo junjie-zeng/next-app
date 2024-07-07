@@ -1,22 +1,22 @@
-import React from "react"
-import { getUserById } from "../lib/data"
+import React from "react";
+import Item from "./Item";
+import { getUserById } from "../lib/data";
+
+export const revalidate = 0; // 禁用缓存
 
 interface Props {
-  id: string
+  id: string;
 }
 
-
 export default async function User(props: Props) {
-  const users:any = await getUserById(props.id)
-  const user = users[0]
-  // 模拟请求耗时
-  if (user.name === "blue") {
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-  }
+  const users: any = await getUserById(props.id);
+  const user = users[0];
+  console.log('user ...',user);
+  
 
   return (
-    <div>
-      <pre>{JSON.stringify(users, null, 2)}</pre>
+    <div className="bg-white p-4 rounded-md shadow-md mt-2">
+      <Item user={user} />
     </div>
-  )
+  );
 }

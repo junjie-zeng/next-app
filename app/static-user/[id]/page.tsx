@@ -1,20 +1,20 @@
-import { getUserById, getUsers } from "../../lib/data"
-
+import { getUsers } from "../../lib/data";
+import User from "../../components/User";
 
 // 主要用于生成静态路径的参数
 export async function generateStaticParams() {
-  const users: any = await getUsers()
+  const users: any = await getUsers();
   return users.map((user: any) => ({
     id: user.id,
-  }))
+  }));
 }
 
 export default async function staticPage({ params }: any) {
-  const users = await getUserById(params.id)
+  console.log("根据id去获取数据 ...");
   return (
-    <div>
-      <h1>用户详情：</h1>
-      <pre>{JSON.stringify(users, null, 2)}</pre>
+    <div className="p-5">
+      <h1>静态渲染（用户详情）</h1>
+      <User id={params.id} />
     </div>
-  )
+  );
 }
