@@ -13,12 +13,12 @@ export default async function HomePage() {
       <UserList />
       <h1>模拟耗时组件</h1>
       <div className="flex ">
-        <Suspense fallback={"Loading..."}>
+        {/* <Suspense fallback={"Loading..."}> */}
           <Slow time={3000} text={"有点慢"} />
-        </Suspense>
-        <Suspense fallback={"Loading..."}>
+        {/* </Suspense> */}
+        {/* <Suspense fallback={"Loading..."}> */}
           <Slow time={5000} text={"更慢"} />
-        </Suspense>
+        {/* </Suspense> */}
       </div>
     </div>
   );

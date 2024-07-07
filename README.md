@@ -1,8 +1,5 @@
 
 
-
-
-
 ###  Next.js  
 
 
@@ -14,18 +11,18 @@
 3. 创建第一个 Next.js 应用
 4. 项目结构介绍 
 5. 路由与导航
-6. 数据获取（动态渲染 和 静态渲染）
-7. API 路由
+6. 创建数据库
+7. 获取数据（动态渲染、静态渲染）
+8. 流式传输
+9. api路由
+
+
 
 ### 1. 什么是 Next.js？
-    Next.js 是一个用于构建全栈 Web 应用程序的 React 框架。您可以使用 React Components 构建用户界面，并使用 Next.js 实现附加功能和优化。
-
-    在底层，Next.js 还会抽象并自动配置 React 所需的工具，如打包、编译等。这样您就可以专注于构建应用程序，而不必花时间进行配置。
-
-    无论您是个人开发者还是大型团队的一部分，Next.js 都可以帮助您构建交互式、动态且快速的 React 应用程序。
+    Next.js 是一个用于构建全栈 Web 应用程序的 React 框架。
 
 ### 2. next.js能做什么
-  解决React(单页面应用)存在的一些问题
+    解决React(单页面应用)存在的一些问题
 
   ## 什么是单页面应用
     单页面应用（Single Page Application，SPA）是一种 Web 应用程序的架构模式，它使用动态加载页面内容的方式，实现在单个 HTML 页面中提供整个应用所需的交互体验。
@@ -42,9 +39,6 @@
   
   ## 客户端渲染与服务端渲染
   <img src="https://raw.githubusercontent.com/junjie-zeng/blogs/master/assets/images/next-ssr.png" />
-
-
-
 
 
 ### 3. 创建 Next.js 应用
@@ -71,9 +65,6 @@ my-next-app/
 │   ├── page.tsx
 │   ├── about/
 │   │   └── page.tsx
-├── pages/
-│   ├── about/
-│   │   └── index.tsx
 │   ├── api/
 │   │   └── user.ts
 ├── public/
@@ -82,26 +73,28 @@ my-next-app/
 ```
 
 - **.next**：构建输出的默认目录，包含了编译后的页面、静态资源以及构建相关的文件。
-- **app/**：基于文件系统的路由，用于存放应用的页面和组件（Next.js 13引入的新特性）
-- **pages/**：基于文件系统的路由，存放应用的页面和组件。
+- **app/**：基于文件系统的路由，用于存放应用的页面和组件
 - **public/**：存放静态资源，如图片、字体等。
 - **next.config.js**：Next.js 配置文件。
 - **package.json**：项目依赖和脚本。
 
 ### 5. 路由与导航
+  
+#### 路由
 
-    Next.js 使用文件系统路由。`pages` 目录中的每个文件和文件夹都对应一个路由。
-    它简化了路由配置，并且能直观的体现这个url的结构。
+    Next.js 使用的是文件系统路由。`app` 目录中的每个文件都对应一个路由。
 
 #### 基本用法
 
-    在 pages 目录中创建文件和文件夹来定义路由：
+    在 app 目录中创建文件和文件夹来定义路由：
 
-    文件系统路由，pages/index.tsx 对应 /，pages/about/index.tsx 对应 /about。
+    app/page.tsx 对应 /
+    app/user/page.tsx 对应 /user
+    app/user/[id].tsx 对应 /user/:id
 
 
 
-#### pages/index.tsx
+#### app/page.tsx
 
 ```tsx
 import React from 'react';
@@ -117,7 +110,7 @@ const HomePage = () => {
 export default HomePage;
 ```
 
-#### pages/about/index.tsx
+#### app/about/page.tsx
 
 ```tsx
 import React from 'react';
@@ -155,103 +148,83 @@ export default User;
   访问 http://localhost:3000/user/123，显示 `User ID: 123`。
 
 #### 导航
+  在 Next.js 中，使用 Link 组件在应用程序的页面之间进行链接。
+
+
   ```tsx
     import Link from "next/link";
 
-
     <Link href="/">pages/index</Link>
     <Link href="/ssr/1">ssr/1</Link>
-  ```
-
-### 6. 数据获取（动态渲染 和 静态渲染）
-
-  ### 核心方法
-    getServerSideProps
-    getStaticProps
-    getStaticPaths
-
-  ## 动态渲染（Dynamic Rendering）
-    当每个请求到达时，服务器都会重新计算数据并生成页面内容
-    这种方式可用于需要根据用户请求动态生成的内容，例如根据请求参数来动态生成不同内容的页面。
-
-  ## 静态渲染（Static Rendering）
-    在构建时生成页面，并且页面内容在每次请求时都保持不变，不会发生变化。
-    这种页面内容生成方式在每个请求时只获取一次，之后不再更新。
-
-#### 使用 `getServerSideProps` 进行 动态渲染
-
-```tsx
-import React from 'react';
-
-export async function getServerSideProps({params}) {
-  const { id } = params;
-  const response = await fetch(`https://api/data/${id}`);
-  const data = await response.json();
-
-  return {
-    props: { data },
-  };
-}
-
-const SSRPage = ({ data }) => {
-  return (
-    <div>
-      <h1>动态渲染</h1>
-      <p>Data: {JSON.stringify(data)}</p>
-    </div>
-  );
-};
-
-export default SSRPage;
-```
-
-#### 使用 `getStaticProps` `getStaticPaths` 进行 静态渲染
+  ``` 
 
 
-```tsx
-import React from 'react';
+### 6. 创建数据库
+  1. 在github创建仓库，上传代码
+  2. 注册Vercel账号（官方地址：https://vercel.com）
+  3. 导入指定仓库，运行部署
+  4. 数据库创建
+  5. 安装依赖
+      npm install @vercel/postgres
+  6. 获取数据
+  
 
 
-export async function getStaticPaths() {
-  return {
-    paths: [{ params: { id: "1" } }, { params: { id: "2" } }],
-    fallback: "blocking", 
-    // fallback: false,
-    // fallback:true ,
-  };
-}
+### 7. 获取数据（动态渲染、静态渲染）
 
-export async function getStaticProps({params}) {
-  const id = params.id;
-  const response = await fetch(`https://api/data/${id}`);
-  const data = await response.json();
+  #### 静态渲染（Static Rendering）
+    1. 数据获取和渲染
+        位置：服务端
+        时机：构建部署、（数据发生变更时）
 
-  return {
-    props: { data },
-  };
-}
+    2. 静态渲染的结果
+        可以被分发、缓存
 
-const SSGPage = ({ data }) => {
-  return (
-    <div>
-      <h1>静态渲染</h1>
-      <p>Data: {JSON.stringify(data)}</p>
-    </div>
-  );
-};
+    3. 静态+缓存的收益
+        更快的访问网页体验
+        减轻服务器的负担
+        利于seo
 
-export default SSGPage;
-```
+    4. 使用场景
+        没有变化的数据
+        多页面共享的数据
+
+  ####  动态渲染（Dynamic Rendering）
+
+    1. 数据获取和渲染
+        位置：服务端
+        时机：每个用户请求时
+
+    2. 动态渲染的收益
+        显示实时数据
+    
+    3. 使用场景
+        需要变化的数据
+        每个用户请求的数据不同
+
+### 7. 流式传输
+
+#### 什么是流式传输？
+    流式传输是一种数据传输技术，它通过将数据分割成多个小块（chunks）发送给客户端，实现了内容的渐进式呈现。
+
+#### 解决了什么问题？
+    流式传输能减少页面加载的阻塞，让用户能够更早地参与到页面的交互中，而不需要等待整个界面的完全加载。
+
+#### next.js中有两种实现流式传输的方式：
+    1. 页面级别，使用loading.tsx文件
+    2. 对于特定组件，使用<Supence>
 
 ### 7. API 路由
 
-    Next.js 内置了 API 路由，可以创建 API 端点，编写服务器端代码，以处理客户端发来的 API 请求
+#### 什么是API路由
+    在Next.js中，API路由可以让开发者直接在Next.js项目中编写Node.js后端代码来处理客户端发来的 API 请求
+      
 
 #### 创建 API 路由
 
-    在 `pages/api` 目录下创建 API 端点：
+    在 `app/api` 目录下创建 API 端点：
 
-#### pages/api/user.ts
+#### app/api/user.ts
 
 ```ts
 export default function handler(req, res) {
@@ -259,16 +232,17 @@ export default function handler(req, res) {
 }
 ```
 
-访问 `http://localhost:3000/api/user/1`，可以看到返回的 JSON 数据。
+访问 `http://localhost:3000/api/user`，可以看到返回的 JSON 数据。
 
 
 
-#### 总结
-2. **关于next**：Next.js 是什么？能做什么？解决了什么问题？怎么创建一个next.js应用？
-3. **项目结构**：了解 Next.js 项目的基本目录和文件结构。
-4. **路由和导航**：使用文件系统路由和动态路由，掌握 Link 组件的使用。
-5. **数据获取**：静态渲染和动态渲染的基本用法。
-6. **API 路由**：在 Next.js 中创建和使用 API 路由。
+
+
+
+
+
+
+
 
 
 
