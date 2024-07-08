@@ -1,45 +1,44 @@
+### Next.js
 
-
-###  Next.js  
-
-
-
-   
 ### 目录
+
 1. 什么是 Next.js
-2. Next.js 能做什么 
+2. Next.js 解决了什么问题
 3. 创建第一个 Next.js 应用
-4. 项目结构介绍 
+4. 项目结构介绍
 5. 路由与导航
 6. 创建数据库
 7. 获取数据（动态渲染、静态渲染）
 8. 流式传输
-9. api路由
-
-
+9. api 路由
 
 ### 1. 什么是 Next.js？
+
     Next.js 是一个用于构建全栈 Web 应用程序的 React 框架。
 
-### 2. next.js能做什么
+### 2. Next.js 解决了什么问题
+
     解决React(单页面应用)存在的一些问题
 
-  ## 什么是单页面应用
+## 什么是单页面应用
+
     单页面应用（Single Page Application，SPA）是一种 Web 应用程序的架构模式，它使用动态加载页面内容的方式，实现在单个 HTML 页面中提供整个应用所需的交互体验。
 
     常见的单页面应用开发框架：React、Vue、Angular
 
-  ## 单页面存在的一些问题
+## 单页面存在的一些问题
+
     1. 依赖js环境
-    2. 首屏加载慢 
+    2. 首屏加载慢
     3. 不利于seo
 
-  ## 解决方案
-    服务端渲染
-  
-  ## 客户端渲染与服务端渲染
-  <img src="https://raw.githubusercontent.com/junjie-zeng/blogs/master/assets/images/next-ssr.png" />
+## 解决方案
 
+    服务端渲染
+
+## 客户端渲染与服务端渲染
+
+  <img src="https://raw.githubusercontent.com/junjie-zeng/blogs/master/assets/images/next-ssr.png" />
 
 ### 3. 创建 Next.js 应用
 
@@ -79,7 +78,7 @@ my-next-app/
 - **package.json**：项目依赖和脚本。
 
 ### 5. 路由与导航
-  
+
 #### 路由
 
     Next.js 使用的是文件系统路由。`app` 目录中的每个文件都对应一个路由。
@@ -92,87 +91,123 @@ my-next-app/
     app/user/page.tsx 对应 /user
     app/user/[id].tsx 对应 /user/:id
 
-
-
 #### app/page.tsx
 
 ```tsx
-import React from 'react';
+import React from "react"
 
 const HomePage = () => {
   return (
     <div>
       <h1>Hello Next.js!</h1>
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
 ```
 
 #### app/about/page.tsx
 
 ```tsx
-import React from 'react';
+import React from "react"
 
 const AboutPage = () => {
   return (
     <div>
       <h1>AboutPage</h1>
     </div>
-  );
-};
+  )
+}
 
-export default AboutPage;
+export default AboutPage
 ```
 
 #### 动态路由
+
 app/user/[id].tsx
 
 ```tsx
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router"
 
 const User = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const router = useRouter()
+  const { id } = router.query
 
   return (
     <div>
       <h1>User ID: {id}</h1>
     </div>
-  );
-};
+  )
+}
 
-export default User;
+export default User
 ```
-  访问 http://localhost:3000/user/123，显示 `User ID: 123`。
+
+访问 http://localhost:3000/user/123，显示 `User ID: 123`。
 
 #### 导航
-  在 Next.js 中，使用 Link 组件在应用程序的页面之间进行链接。
 
+在 Next.js 中，使用 Link 组件在应用程序的页面之间进行链接。
 
-  ```tsx
-    import Link from "next/link";
+```tsx
+  import Link from "next/link";
 
-    <Link href="/">pages/index</Link>
-    <Link href="/ssr/1">ssr/1</Link>
-  ``` 
-
+  <Link href="/">pages/index</Link>
+  <Link href="/ssr/1">ssr/1</Link>
+```
 
 ### 6. 创建数据库
-  1. 在github创建仓库，上传代码
-  2. 注册Vercel账号 [官方地址](https://vercel.com/)
-  3. 导入指定仓库，运行部署
-  4. 数据库创建
-  5. 安装依赖
-      npm install @vercel/postgres
-  6. 获取数据
-  
 
+1. 在 github 创建仓库，上传代码
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-1.jpeg" />
+2. 注册 Vercel 账号 [官方地址](https://vercel.com/)<br/>
+   选择免费的 "hobby" 计划
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-2.jpeg" />
+   选择 "Continue with GitHub" 来连接你的 GitHub 和 Vercel 账户
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-3.jpeg" />
+3. 导入指定仓库，导入项目
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-4.jpeg" />
+   给项目取一个名字，然后点击 Deploy（部署）。
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-5.jpeg" />
+   部署成功
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-6.jpeg" />
+
+4. 数据库创建<br/>
+   选择 Storage 选项卡
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-7.jpeg" />
+   创建数据库
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-8.jpeg" />
+   选择 Postgres 创建
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-9.jpeg" />
+   连接
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-10.jpeg" />
+   连接后，转到 .env.local 选项卡，点击 “Show secret” 并复制片段
+   <img src="https://raw.githubusercontent.com/junjie-zeng/next-app/master/public/images/create-data-11.jpeg" />
+5. 安装依赖
+
+   npm install @vercel/postgres
+
+6. 获取数据
+
+```ts
+import { sql } from "@vercel/postgres"
+
+// 获取所有用户数据
+export const getUsers = async () => {
+  try {
+    const { rows } = await sql`SELECT * FROM users`
+    return rows
+  } catch (error) {
+    console.log(error)
+  }
+}
+```
 
 ### 7. 获取数据（动态渲染、静态渲染）
 
-  #### 静态渲染（Static Rendering）
+#### 静态渲染（Static Rendering）
+
     1. 数据获取和渲染
         位置：服务端
         时机：构建部署、（数据发生变更时）
@@ -189,7 +224,7 @@ export default User;
         没有变化的数据
         多页面共享的数据
 
-  ####  动态渲染（Dynamic Rendering）
+#### 动态渲染（Dynamic Rendering）
 
     1. 数据获取和渲染
         位置：服务端
@@ -197,7 +232,7 @@ export default User;
 
     2. 动态渲染的收益
         显示实时数据
-    
+
     3. 使用场景
         需要变化的数据
         每个用户请求的数据不同
@@ -205,34 +240,50 @@ export default User;
 ### 7. 流式传输
 
 #### 什么是流式传输？
+
     流式传输是一种数据传输技术，它通过将数据分割成多个小块（chunks）发送给客户端，实现了内容的渐进式呈现。
 
 #### 解决了什么问题？
+
     流式传输能减少页面加载的阻塞，让用户能够更早地参与到页面的交互中，而不需要等待整个界面的完全加载。
 
-#### next.js中有两种实现流式传输的方式：
+#### next.js 中有两种实现流式传输的方式：
+
     1. 页面级别，使用loading.tsx文件
     2. 对于特定组件，使用<Supence>
 
 ### 7. API 路由
 
-#### 什么是API路由
+#### 什么是 API 路由
+
     在Next.js中，API路由可以让开发者直接在Next.js项目中编写Node.js后端代码来处理客户端发来的 API 请求
-      
+
 
 #### 创建 API 路由
 
     在 `app/api` 目录下创建 API 端点：
 
-#### app/api/user.ts
+#### app/api/getUsers/route.ts
 
 ```ts
-export default function handler(req, res) {
-  res.status(200).json({ message: 'Hello, world!' });
+import { sql } from "@vercel/postgres";
+
+export async function GET() {
+  try {
+    const { rows } = await sql`SELECT * FROM users`;
+    return new Response(JSON.stringify(rows), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 ```
 
-访问 `http://localhost:3000/api/user`，可以看到返回的 JSON 数据。
+访问 `http://localhost:3000/api/getUsers`，可以看到返回的 JSON 数据。
 
 
 
@@ -260,19 +311,33 @@ export default function handler(req, res) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
