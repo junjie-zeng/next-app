@@ -161,7 +161,7 @@ export default User;
 
 ### 6. 创建数据库
   1. 在github创建仓库，上传代码
-  2. 注册Vercel账号（官方地址：https://vercel.com）
+  2. 注册Vercel账号 [官方地址](https://vercel.com/)
   3. 导入指定仓库，运行部署
   4. 数据库创建
   5. 安装依赖
